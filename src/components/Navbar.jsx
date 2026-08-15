@@ -1,0 +1,408 @@
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { ChevronDown, Menu, X, Search, Briefcase, HardHat, Factory, ArrowRight } from 'lucide-react'
+import logoImg from '../IMAGES/LogoImage.jpeg'
+
+export default function Navbar({ activeSection = 'home' }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const isHomePage = location.pathname === '/'
+
+  return (
+    <header className={`sticky top-0 z-50 bg-white transition-all duration-200 border-b border-slate-100 ${
+      isScrolled ? 'shadow-md py-1' : 'shadow-xs py-2'
+    }`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between min-h-[85px] sm:min-h-[96px]">
+          
+          {/* Logo on Left (Transparent Background Blend) */}
+          <Link to="/" className="flex items-center group py-2 flex-shrink-0">
+            <img
+              src={logoImg}
+              alt="Bhavika Manpower and Recruitment Services"
+              className="h-16 sm:h-20 md:h-24 w-auto object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-[1.02]"
+            />
+          </Link>
+
+          {/* Desktop Navigation Links (Matched to ANG Manpower Screenshot) */}
+          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+            
+            {/* HOME */}
+            <div className="relative py-2">
+              <Link
+                to="/"
+                className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                  isHomePage && activeSection === 'home'
+                    ? 'text-[#0088cc]'
+                    : 'text-slate-800 hover:text-[#0088cc]'
+                }`}
+              >
+                HOME
+              </Link>
+              {isHomePage && activeSection === 'home' && (
+                <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
+              )}
+            </div>
+
+            {/* ABOUT US */}
+            <div className="relative py-2">
+              {isHomePage ? (
+                <a
+                  href="#about"
+                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                    activeSection === 'about'
+                      ? 'text-[#0088cc]'
+                      : 'text-slate-800 hover:text-[#0088cc]'
+                  }`}
+                >
+                  ABOUT US
+                </a>
+              ) : (
+                <Link
+                  to="/about"
+                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                    location.pathname === '/about'
+                      ? 'text-[#0088cc]'
+                      : 'text-slate-800 hover:text-[#0088cc]'
+                  }`}
+                >
+                  ABOUT US
+                </Link>
+              )}
+              {((isHomePage && activeSection === 'about') || location.pathname === '/about') && (
+                <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
+              )}
+            </div>
+
+            {/* BLOGS */}
+            <div className="relative py-2">
+              <Link
+                to="/blogs"
+                className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                  location.pathname === '/blogs'
+                    ? 'text-[#0088cc]'
+                    : 'text-slate-800 hover:text-[#0088cc]'
+                }`}
+              >
+                BLOGS
+              </Link>
+              {location.pathname === '/blogs' && (
+                <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
+              )}
+            </div>
+
+            {/* SERVICES */}
+            <div className="relative py-2">
+              {isHomePage ? (
+                <a
+                  href="#services"
+                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                    activeSection === 'services'
+                      ? 'text-[#0088cc]'
+                      : 'text-slate-800 hover:text-[#0088cc]'
+                  }`}
+                >
+                  SERVICES
+                </a>
+              ) : (
+                <Link
+                  to="/services"
+                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                    location.pathname === '/services'
+                      ? 'text-[#0088cc]'
+                      : 'text-slate-800 hover:text-[#0088cc]'
+                  }`}
+                >
+                  SERVICES
+                </Link>
+              )}
+              {((isHomePage && activeSection === 'services') || location.pathname === '/services') && (
+                <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
+              )}
+            </div>
+
+            {/* CONTACT */}
+            <div className="relative py-2">
+              {isHomePage ? (
+                <a
+                  href="#contact"
+                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                    activeSection === 'contact'
+                      ? 'text-[#0088cc]'
+                      : 'text-slate-800 hover:text-[#0088cc]'
+                  }`}
+                >
+                  CONTACT
+                </a>
+              ) : (
+                <Link
+                  to="/contact"
+                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                    location.pathname === '/contact'
+                      ? 'text-[#0088cc]'
+                      : 'text-slate-800 hover:text-[#0088cc]'
+                  }`}
+                >
+                  CONTACT
+                </Link>
+              )}
+              {((isHomePage && activeSection === 'contact') || location.pathname === '/contact') && (
+                <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
+              )}
+            </div>
+
+            {/* CONSTRUCTION MANPOWER (Dropdown with chevron like ANG) */}
+            <div className="relative group py-2">
+              <button className="flex items-center gap-1 text-sm font-extrabold tracking-wide uppercase text-slate-800 group-hover:text-[#0088cc] transition-colors">
+                <span>CONSTRUCTION MANPOWER</span>
+                <ChevronDown className="w-4 h-4 text-slate-500 group-hover:text-[#0088cc] group-hover:rotate-180 transition-transform duration-200" />
+              </button>
+
+              {/* Dropdown Menu */}
+              <div className="absolute top-full left-0 w-72 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl rounded-xl z-50">
+                <div className="bg-white border border-slate-200 rounded-xl p-2 shadow-2xl space-y-1">
+                  <a
+                    href="/#categories"
+                    className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors group/item"
+                  >
+                    <div className="p-2 bg-blue-100 text-[#0088cc] rounded-md group-hover/item:bg-[#0088cc] group-hover/item:text-white transition-colors">
+                      <Briefcase className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 group-hover/item:text-[#0088cc]">
+                        White Collar Roles
+                      </div>
+                      <p className="text-[11px] text-slate-500">
+                        Site Engineers, Project Managers, Accountants
+                      </p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="/#categories"
+                    className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors group/item"
+                  >
+                    <div className="p-2 bg-amber-100 text-amber-700 rounded-md group-hover/item:bg-amber-600 group-hover/item:text-white transition-colors">
+                      <HardHat className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 group-hover/item:text-amber-700">
+                        Grey Collar Workforce
+                      </div>
+                      <p className="text-[11px] text-slate-500">
+                        Site Supervisors, Foremen, Electricians, QC
+                      </p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="/#categories"
+                    className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors group/item"
+                  >
+                    <div className="p-2 bg-slate-100 text-slate-700 rounded-md group-hover/item:bg-slate-900 group-hover/item:text-white transition-colors">
+                      <Factory className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 group-hover/item:text-slate-900">
+                        Blue Collar Manpower
+                      </div>
+                      <p className="text-[11px] text-slate-500">
+                        Masons, Bar Benders, Welders, Helpers & Labor
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </nav>
+
+          {/* Far Right Search Icon (matches ANG screenshot design) */}
+          <div className="hidden lg:flex items-center pl-4">
+            <button
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="p-2.5 text-slate-700 hover:text-[#0088cc] hover:bg-blue-50/80 rounded-full transition-all duration-200 group"
+              title="Search"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5 group-hover:scale-110 transition-transform stroke-[2.2]" />
+            </button>
+          </div>
+
+          {/* Mobile Hamburger Toggle */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="p-2 text-slate-700 hover:text-[#0088cc]"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-slate-800 hover:bg-slate-100 rounded-lg focus:outline-none"
+              aria-label="Toggle navigation"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Expandable Search Input Bar */}
+      {searchOpen && (
+        <div className="border-t border-slate-200 bg-slate-50 px-4 py-3 shadow-inner animate-fadeIn">
+          <div className="max-w-4xl mx-auto flex items-center gap-3">
+            <Search className="w-5 h-5 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Search manpower categories, construction workforce, recruitment solutions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-transparent text-sm border-0 focus:ring-0 text-slate-800 placeholder-slate-400 py-1"
+              autoFocus
+            />
+            <button
+              onClick={() => setSearchOpen(false)}
+              className="text-xs font-semibold text-slate-500 hover:text-slate-800 px-2.5 py-1 bg-white border rounded shadow-xs"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Slide-in Drawer */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 top-[85px] sm:top-[96px] bg-slate-900/60 backdrop-blur-xs z-50 flex justify-end">
+          <div className="w-4/5 max-w-sm bg-white h-full overflow-y-auto p-6 flex flex-col justify-between shadow-2xl animate-fadeIn">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b pb-3">
+                <span className="font-extrabold text-slate-900 text-sm tracking-wide uppercase">Menu</span>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 text-slate-500 hover:text-slate-900"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <nav className="flex flex-col space-y-2">
+                <Link
+                  to="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-lg font-bold text-sm uppercase ${
+                    isHomePage && activeSection === 'home'
+                      ? 'text-[#0088cc] bg-blue-50'
+                      : 'text-slate-800 hover:bg-slate-50'
+                  }`}
+                >
+                  HOME
+                </Link>
+
+                <a
+                  href="/#about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                >
+                  ABOUT US
+                </a>
+
+                <Link
+                  to="/blogs"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                >
+                  BLOGS
+                </Link>
+
+                <a
+                  href="/#services"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                >
+                  SERVICES
+                </a>
+
+                <a
+                  href="/#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                >
+                  CONTACT
+                </a>
+
+                {/* Construction Manpower Collapsible */}
+                <div>
+                  <button
+                    onClick={() => setCategoriesDropdownOpen(!categoriesDropdownOpen)}
+                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                  >
+                    <span>CONSTRUCTION MANPOWER</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        categoriesDropdownOpen ? 'rotate-180 text-[#0088cc]' : ''
+                      }`}
+                    />
+                  </button>
+                  {categoriesDropdownOpen && (
+                    <div className="pl-4 pr-2 py-1 space-y-1 bg-slate-50 rounded-lg my-1 text-xs">
+                      <a
+                        href="/#categories"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-2 text-slate-600 hover:text-[#0088cc] font-medium"
+                      >
+                        • White Collar (Engineers, PMs)
+                      </a>
+                      <a
+                        href="/#categories"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-2 text-slate-600 hover:text-[#0088cc] font-medium"
+                      >
+                        • Grey Collar (Supervisors, Techs)
+                      </a>
+                      <a
+                        href="/#categories"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-2 text-slate-600 hover:text-[#0088cc] font-medium"
+                      >
+                        • Blue Collar (Masons, Labor)
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </nav>
+            </div>
+
+            <div className="border-t pt-4 space-y-3">
+              <a
+                href="tel:+918882943975"
+                className="w-full py-2.5 bg-[#0088cc] text-white rounded-lg font-bold text-sm shadow text-center block"
+              >
+                Call: +91 88829 43975
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}
