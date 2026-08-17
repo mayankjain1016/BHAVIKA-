@@ -63,30 +63,17 @@ export default function Navbar({ activeSection = 'home' }) {
 
             {/* ABOUT US */}
             <div className="relative py-2">
-              {isHomePage ? (
-                <a
-                  href="#about"
-                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
-                    activeSection === 'about'
-                      ? 'text-[#0088cc]'
-                      : 'text-slate-800 hover:text-[#0088cc]'
-                  }`}
-                >
-                  ABOUT US
-                </a>
-              ) : (
-                <Link
-                  to="/about"
-                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
-                    location.pathname === '/about'
-                      ? 'text-[#0088cc]'
-                      : 'text-slate-800 hover:text-[#0088cc]'
-                  }`}
-                >
-                  ABOUT US
-                </Link>
-              )}
-              {((isHomePage && activeSection === 'about') || location.pathname === '/about') && (
+              <Link
+                to="/about"
+                className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                  location.pathname === '/about' || location.pathname === '/about-us' || activeSection === 'about'
+                    ? 'text-[#0088cc]'
+                    : 'text-slate-800 hover:text-[#0088cc]'
+                }`}
+              >
+                ABOUT US
+              </Link>
+              {(location.pathname === '/about' || location.pathname === '/about-us' || activeSection === 'about') && (
                 <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
               )}
             </div>
@@ -110,63 +97,39 @@ export default function Navbar({ activeSection = 'home' }) {
 
             {/* SERVICES */}
             <div className="relative py-2">
-              {isHomePage ? (
-                <a
-                  href="#services"
-                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
-                    activeSection === 'services'
-                      ? 'text-[#0088cc]'
-                      : 'text-slate-800 hover:text-[#0088cc]'
-                  }`}
-                >
-                  SERVICES
-                </a>
-              ) : (
-                <Link
-                  to="/services"
-                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
-                    location.pathname === '/services'
-                      ? 'text-[#0088cc]'
-                      : 'text-slate-800 hover:text-[#0088cc]'
-                  }`}
-                >
-                  SERVICES
-                </Link>
-              )}
-              {((isHomePage && activeSection === 'services') || location.pathname === '/services') && (
+              <Link
+                to="/services"
+                className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                  location.pathname === '/services' || activeSection === 'services'
+                    ? 'text-[#0088cc]'
+                    : 'text-slate-800 hover:text-[#0088cc]'
+                }`}
+              >
+                SERVICES
+              </Link>
+              {(location.pathname === '/services' || activeSection === 'services') && (
                 <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
               )}
             </div>
 
+
             {/* CONTACT */}
             <div className="relative py-2">
-              {isHomePage ? (
-                <a
-                  href="#contact"
-                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
-                    activeSection === 'contact'
-                      ? 'text-[#0088cc]'
-                      : 'text-slate-800 hover:text-[#0088cc]'
-                  }`}
-                >
-                  CONTACT
-                </a>
-              ) : (
-                <Link
-                  to="/contact"
-                  className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
-                    location.pathname === '/contact'
-                      ? 'text-[#0088cc]'
-                      : 'text-slate-800 hover:text-[#0088cc]'
-                  }`}
-                >
-                  CONTACT
-                </Link>
-              )}
-              {((isHomePage && activeSection === 'contact') || location.pathname === '/contact') && (
+              <Link
+                to="/contact"
+                className={`text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                  location.pathname === '/contact' || location.pathname === '/contact-us' || activeSection === 'contact'
+                    ? 'text-[#0088cc]'
+                    : 'text-slate-800 hover:text-[#0088cc]'
+                }`}
+              >
+                CONTACT
+              </Link>
+              {(location.pathname === '/contact' || location.pathname === '/contact-us' || activeSection === 'contact') && (
                 <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
               )}
             </div>
+
 
             {/* CONSTRUCTION MANPOWER (Dropdown with chevron like ANG) */}
             <div className="relative group py-2">
@@ -318,13 +281,18 @@ export default function Navbar({ activeSection = 'home' }) {
                   HOME
                 </Link>
 
-                <a
-                  href="/#about"
+                <Link
+                  to="/about"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                  className={`px-3 py-2.5 rounded-lg font-bold text-sm uppercase ${
+                    location.pathname === '/about' || location.pathname === '/about-us'
+                      ? 'text-[#0088cc] bg-blue-50'
+                      : 'text-slate-800 hover:bg-slate-50'
+                  }`}
                 >
                   ABOUT US
-                </a>
+                </Link>
+
 
                 <Link
                   to="/blogs"
@@ -334,21 +302,31 @@ export default function Navbar({ activeSection = 'home' }) {
                   BLOGS
                 </Link>
 
-                <a
-                  href="/#services"
+                <Link
+                  to="/services"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                  className={`px-3 py-2.5 rounded-lg font-bold text-sm uppercase ${
+                    location.pathname === '/services'
+                      ? 'text-[#0088cc] bg-blue-50'
+                      : 'text-slate-800 hover:bg-slate-50'
+                  }`}
                 >
                   SERVICES
-                </a>
+                </Link>
 
-                <a
-                  href="/#contact"
+
+                <Link
+                  to="/contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2.5 rounded-lg font-bold text-slate-800 hover:bg-slate-50 text-sm uppercase"
+                  className={`px-3 py-2.5 rounded-lg font-bold text-sm uppercase ${
+                    location.pathname === '/contact' || location.pathname === '/contact-us'
+                      ? 'text-[#0088cc] bg-blue-50'
+                      : 'text-slate-800 hover:bg-slate-50'
+                  }`}
                 >
                   CONTACT
-                </a>
+                </Link>
+
 
                 {/* Construction Manpower Collapsible */}
                 <div>
