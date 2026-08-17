@@ -131,18 +131,45 @@ export default function Navbar({ activeSection = 'home' }) {
             </div>
 
 
-            {/* CONSTRUCTION MANPOWER (Dropdown with chevron like ANG) */}
+            {/* CONSTRUCTION MANPOWER */}
             <div className="relative group py-2">
-              <button className="flex items-center gap-1 text-sm font-extrabold tracking-wide uppercase text-slate-800 group-hover:text-[#0088cc] transition-colors">
+              <Link
+                to="/construction-manpower"
+                className={`flex items-center gap-1 text-sm font-extrabold tracking-wide uppercase transition-colors ${
+                  location.pathname === '/construction-manpower' || location.pathname === '/blue-collar-construction-manpower' || activeSection === 'construction-manpower'
+                    ? 'text-[#0088cc]'
+                    : 'text-slate-800 hover:text-[#0088cc]'
+                }`}
+              >
                 <span>CONSTRUCTION MANPOWER</span>
                 <ChevronDown className="w-4 h-4 text-slate-500 group-hover:text-[#0088cc] group-hover:rotate-180 transition-transform duration-200" />
-              </button>
+              </Link>
+              {(location.pathname === '/construction-manpower' || location.pathname === '/blue-collar-construction-manpower' || activeSection === 'construction-manpower') && (
+                <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#0088cc] rounded-full" />
+              )}
 
               {/* Dropdown Menu */}
               <div className="absolute top-full left-0 w-72 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl rounded-xl z-50">
                 <div className="bg-white border border-slate-200 rounded-xl p-2 shadow-2xl space-y-1">
-                  <a
-                    href="/#categories"
+                  <Link
+                    to="/construction-manpower"
+                    className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors group/item"
+                  >
+                    <div className="p-2 bg-slate-100 text-slate-700 rounded-md group-hover/item:bg-slate-900 group-hover/item:text-white transition-colors">
+                      <Factory className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 group-hover/item:text-[#0088cc]">
+                        Blue Collar Construction Manpower
+                      </div>
+                      <p className="text-[11px] text-slate-500">
+                        Masons, Bar Benders, Welders, Helpers & Labor
+                      </p>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/industries"
                     className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors group/item"
                   >
                     <div className="p-2 bg-blue-100 text-[#0088cc] rounded-md group-hover/item:bg-[#0088cc] group-hover/item:text-white transition-colors">
@@ -153,13 +180,13 @@ export default function Navbar({ activeSection = 'home' }) {
                         White Collar Roles
                       </div>
                       <p className="text-[11px] text-slate-500">
-                        Site Engineers, Project Managers, Accountants
+                        Site Engineers, Project Managers, Planning
                       </p>
                     </div>
-                  </a>
+                  </Link>
 
-                  <a
-                    href="/#categories"
+                  <Link
+                    to="/industries"
                     className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors group/item"
                   >
                     <div className="p-2 bg-amber-100 text-amber-700 rounded-md group-hover/item:bg-amber-600 group-hover/item:text-white transition-colors">
@@ -173,27 +200,11 @@ export default function Navbar({ activeSection = 'home' }) {
                         Site Supervisors, Foremen, Electricians, QC
                       </p>
                     </div>
-                  </a>
-
-                  <a
-                    href="/#categories"
-                    className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors group/item"
-                  >
-                    <div className="p-2 bg-slate-100 text-slate-700 rounded-md group-hover/item:bg-slate-900 group-hover/item:text-white transition-colors">
-                      <Factory className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 group-hover/item:text-slate-900">
-                        Blue Collar Manpower
-                      </div>
-                      <p className="text-[11px] text-slate-500">
-                        Masons, Bar Benders, Welders, Helpers & Labor
-                      </p>
-                    </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
+
 
           </nav>
 
@@ -343,27 +354,28 @@ export default function Navbar({ activeSection = 'home' }) {
                   </button>
                   {categoriesDropdownOpen && (
                     <div className="pl-4 pr-2 py-1 space-y-1 bg-slate-50 rounded-lg my-1 text-xs">
-                      <a
-                        href="/#categories"
+                      <Link
+                        to="/construction-manpower"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-2 text-slate-600 hover:text-[#0088cc] font-medium"
+                      >
+                        • Blue Collar Construction Manpower
+                      </Link>
+                      <Link
+                        to="/industries"
                         onClick={() => setMobileMenuOpen(false)}
                         className="block py-2 text-slate-600 hover:text-[#0088cc] font-medium"
                       >
                         • White Collar (Engineers, PMs)
-                      </a>
-                      <a
-                        href="/#categories"
+                      </Link>
+                      <Link
+                        to="/industries"
                         onClick={() => setMobileMenuOpen(false)}
                         className="block py-2 text-slate-600 hover:text-[#0088cc] font-medium"
                       >
                         • Grey Collar (Supervisors, Techs)
-                      </a>
-                      <a
-                        href="/#categories"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block py-2 text-slate-600 hover:text-[#0088cc] font-medium"
-                      >
-                        • Blue Collar (Masons, Labor)
-                      </a>
+                      </Link>
+
                     </div>
                   )}
                 </div>

@@ -329,49 +329,10 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800 selection:bg-primary-600 selection:text-white relative">
       
       {/* ------------------------------------------------------------- */}
-      {/* 1. TOP ANNOUNCEMENT / CONTACT BAR */}
-      {/* ------------------------------------------------------------- */}
-      <div className="bg-navy-950 text-slate-300 text-xs py-2 px-4 border-b border-navy-800">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6">
-            <a
-              href="tel:+918882943975"
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
-            >
-              <Phone className="w-3.5 h-3.5 text-primary-400" />
-              <span className="font-semibold tracking-wide">+91 88829 43975</span>
-            </a>
-            <a
-              href="mailto:bhavikamanpower@gmail.com"
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
-            >
-              <Mail className="w-3.5 h-3.5 text-primary-400" />
-              <span>bhavikamanpower@gmail.com</span>
-            </a>
-            <div className="hidden lg:flex items-center gap-1.5 text-slate-400">
-              <Clock className="w-3.5 h-3.5 text-primary-400" />
-              <span>Mon - Sat: 9:00 AM - 7:00 PM</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 text-xs">
-            <span className="hidden sm:inline text-slate-400">
-              Ghaziabad & Delhi NCR • Pan-India Staffing Solutions
-            </span>
-            <button
-              onClick={() => setQuoteModalOpen(true)}
-              className="inline-flex items-center gap-1 bg-primary-600 hover:bg-primary-500 text-white px-2.5 py-0.5 rounded font-medium text-[11px] transition shadow-sm"
-            >
-              <Sparkles className="w-3 h-3 text-accent-amber" /> Quick Quote
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ------------------------------------------------------------- */}
       {/* NAVBAR (REDESIGNED MATCHING ANG MANPOWER STYLE WITH LOGO) */}
       {/* ------------------------------------------------------------- */}
       <Navbar activeSection={activeSection} />
+
 
 
       {/* ------------------------------------------------------------- */}

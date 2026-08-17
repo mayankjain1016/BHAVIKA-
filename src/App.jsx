@@ -6,6 +6,7 @@ import Services from './pages/Services'
 import Industries from './pages/Industries'
 import Blogs from './pages/Blogs'
 import Contact from './pages/Contact'
+import ConstructionManpower from './pages/ConstructionManpower'
 
 export default function App() {
   return (
@@ -19,7 +20,10 @@ export default function App() {
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/contact-us" element={<Contact />} />
+        <Route path="/construction-manpower" element={<ConstructionManpower />} />
+        <Route path="/blue-collar-construction-manpower" element={<ConstructionManpower />} />
       </Routes>
     </div>
   )
 }
+
