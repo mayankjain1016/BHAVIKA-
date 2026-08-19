@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import { submitContactForm } from '../services/contactService'
 import {
   Phone,
   Mail,
@@ -32,6 +33,7 @@ import {
   ExternalLink,
   MessageSquare
 } from 'lucide-react'
+
 
 // Custom Crisp SVG Icons for Social Platforms to guarantee 100% stability
 const LinkedInIcon = () => (
@@ -81,18 +83,47 @@ export default function Home() {
   const [isSliderHovered, setIsSliderHovered] = useState(false)
   const [openAccordion, setOpenAccordion] = useState(0)
 
-  // Contact Form
+  // Contact Form (6 exact fields: name, email, phone, businessName, industryType, location)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    company: '',
-    requirementType: 'Hiring Requirement',
-    location: '',
-    message: ''
+    businessName: '',
+    industryType: '',
+    location: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [formError, setFormError] = useState('')
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setFormError('')
+
+    try {
+      await submitContactForm(formData)
+      setFormSubmitted(true)
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        businessName: '',
+        industryType: '',
+        location: ''
+      })
+      setTimeout(() => {
+        setFormSubmitted(false)
+      }, 7000)
+    } catch (err) {
+      setFormError(
+        err?.message || 'Something went wrong. Please check your details and try again.'
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
 
   // Quote Modal
   const [quoteModalOpen, setQuoteModalOpen] = useState(false)
@@ -182,31 +213,9 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Form Handlers
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
-    if (!formData.name || !formData.email || !formData.phone || !formData.company) {
-      setFormError('Please fill in all mandatory fields.')
-      return
-    }
-    setFormError('')
-    setFormSubmitted(true)
-    console.log('Enquiry Form Submitted:', formData)
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        requirementType: 'Hiring Requirement',
-        location: '',
-        message: ''
-      })
-      setFormSubmitted(false)
-    }, 5000)
-  }
-
+  // Quote Form Handler
   const handleQuoteSubmit = (e) => {
+
     e.preventDefault()
     if (!quoteFormData.name || !quoteFormData.phone) return
     setQuoteSubmitted(true)
@@ -975,10 +984,7 @@ export default function Home() {
                 {formSubmitted ? (
                   <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 p-6 rounded-xl text-center space-y-2 animate-fadeIn">
                     <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                    <h4 className="font-bold text-lg">Thank You for Your Message!</h4>
-                    <p className="text-sm text-emerald-700">
-                      Your enquiry has been received successfully. Our team will contact you shortly.
-                    </p>
+                    <h4 className="font-bold text-lg">Thank You for Your Message! Our team will contact you shortly.</h4>
                   </div>
                 ) : (
                   <form onSubmit={handleFormSubmit} className="space-y-4">
@@ -1044,9 +1050,9 @@ export default function Home() {
                         <input
                           type="text"
                           required
-                          placeholder="XYZ"
-                          value={formData.company}
-                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                          placeholder="XYZ Enterprises"
+                          value={formData.businessName}
+                          onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                           className="w-full px-3.5 py-2.5 rounded border border-slate-200 focus:border-[#00a2ed] focus:outline-none text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition"
                         />
                       </div>
@@ -1059,17 +1065,20 @@ export default function Home() {
                           INDUSTRY TYPE <span className="text-red-500">*</span>
                         </label>
                         <select
-                          value={formData.requirementType}
-                          onChange={(e) => setFormData({ ...formData, requirementType: e.target.value })}
+                          required
+                          value={formData.industryType}
+                          onChange={(e) => setFormData({ ...formData, industryType: e.target.value })}
                           className="w-full px-3.5 py-2.5 rounded border border-slate-200 focus:border-[#00a2ed] focus:outline-none text-xs sm:text-sm text-slate-800 transition bg-white"
                         >
-                          <option value="Select">Select</option>
+                          <option value="">Select Industry</option>
                           <option value="Commercial Construction">Commercial Construction</option>
                           <option value="Residential Construction">Residential Construction</option>
                           <option value="Infrastructure and Public Works">Infrastructure and Public Works</option>
                           <option value="Industrial Construction">Industrial Construction</option>
+                          <option value="Logistics & Warehousing">Logistics & Warehousing</option>
+                          <option value="Manufacturing & Plant Staffing">Manufacturing & Plant Staffing</option>
                           <option value="Corporate & Office Staffing">Corporate & Office Staffing</option>
-                          <option value="Manufacturing & Logistics">Manufacturing & Logistics</option>
+                          <option value="Other">Other</option>
                         </select>
                       </div>
 
@@ -1081,7 +1090,7 @@ export default function Home() {
                         <input
                           type="text"
                           required
-                          placeholder="Bangalore"
+                          placeholder="Ghaziabad / Delhi NCR / Bangalore"
                           value={formData.location}
                           onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                           className="w-full px-3.5 py-2.5 rounded border border-slate-200 focus:border-[#00a2ed] focus:outline-none text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition"
@@ -1092,11 +1101,20 @@ export default function Home() {
                     <div className="pt-2">
                       <button
                         type="submit"
-                        className="bg-[#00a2ed] hover:bg-[#0090d4] text-white font-bold text-xs sm:text-sm px-8 py-3 rounded shadow-md hover:shadow-lg transition-all"
+                        disabled={isSubmitting}
+                        className="bg-[#00a2ed] hover:bg-[#0090d4] disabled:opacity-60 text-white font-bold text-xs sm:text-sm px-8 py-3 rounded shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        Send Message
+                        {isSubmitting ? (
+                          <>
+                            <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            <span>Sending...</span>
+                          </>
+                        ) : (
+                          <span>Send Message</span>
+                        )}
                       </button>
                     </div>
+
                   </form>
                 )}
               </div>
@@ -1291,13 +1309,25 @@ export default function Home() {
 
           </div>
 
-          {/* Bottom Copyright Bar */}
-          <div className="border-t border-white/20 pt-6 text-center text-xs text-white/90 font-normal">
-            © 2026 Copyright Bhavika Manpower and Recruitment Services
+          {/* Bottom Copyright & Developer Attribution Bar */}
+          <div className="border-t border-white/20 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs text-white/90 font-normal">
+            <p>© 2026 Copyright Bhavika Manpower and Recruitment Services</p>
+            <p>
+              Developed by{' '}
+              <a
+                href="https://affobe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-white underline decoration-white/70 hover:decoration-white hover:text-white transition cursor-pointer"
+              >
+                AFFOBE
+              </a>
+            </p>
           </div>
 
         </div>
       </footer>
+
 
 
       {/* ------------------------------------------------------------- */}

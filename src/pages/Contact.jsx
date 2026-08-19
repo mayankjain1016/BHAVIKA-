@@ -47,6 +47,8 @@ const MediumIcon = () => (
   </svg>
 )
 
+import { submitContactForm } from '../services/contactService'
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -56,13 +58,18 @@ export default function Contact() {
     industryType: '',
     location: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
+    setIsSubmitting(true)
+    setErrorMessage('')
+
+    try {
+      await submitContactForm(formData)
+      setSubmitted(true)
       setFormData({
         name: '',
         email: '',
@@ -71,8 +78,19 @@ export default function Contact() {
         industryType: '',
         location: ''
       })
-    }, 5000)
+    } catch (error) {
+      console.error('Contact Form Submission Error:', error)
+      setErrorMessage(
+        error?.message || 'Failed to submit your message. Please check your connection and try again.'
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
+
+
+
+
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between font-sans antialiased text-slate-800">
@@ -80,47 +98,22 @@ export default function Contact() {
       {/* 1. NAVBAR */}
       <Navbar activeSection="contact" />
 
-      {/* 2. HERO PAGE HEADER BANNER (Grayscale Construction Site with Crane & Scaffolding) */}
-      <section className="relative h-56 sm:h-64 md:h-72 bg-slate-900 text-white flex items-center overflow-hidden">
-        {/* Background Image */}
-        <img
-          src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=2000&q=80"
-          alt="Contact Bhavika Manpower Services"
-          className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-75"
-        />
-        
-        {/* Dark Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/70" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <h1 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl text-white tracking-tight mb-2">
-            Contact
-          </h1>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-300">
-            <Link to="/" className="hover:text-white transition">
-              Home
-            </Link>
-            <span className="text-slate-400 font-normal">›</span>
-            <span className="text-[#00a2ed]">Contact</span>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. CONTACT SECTION (Left: Info, Right: Form Card) */}
-      <section className="py-16 sm:py-20 bg-white">
+      {/* 2. CONTACT SECTION (Left: Info, Right: Form Card) */}
+      <section className="pt-12 sm:pt-16 pb-16 sm:pb-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             
             {/* Left Column: Heading & Contact Info (lg:col-span-5) */}
             <div className="lg:col-span-5 space-y-6">
               <div>
-                <h2 className="font-heading font-black text-4xl sm:text-5xl text-slate-900 tracking-tight mb-4">
+                <h1 className="font-heading font-black text-4xl sm:text-5xl text-slate-900 tracking-tight mb-4">
                   Contact Us
-                </h2>
+                </h1>
                 <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
                   Ready to streamline your construction workforce management? Get in touch with us today to learn more about how we can support your projects with reliable HR solutions.
                 </p>
               </div>
+
 
               <div className="pt-2 space-y-4">
                 <h3 className="font-bold text-xs uppercase tracking-wider text-slate-900">
@@ -177,13 +170,15 @@ export default function Contact() {
                 {submitted ? (
                   <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 p-6 rounded-xl text-center space-y-2 animate-fadeIn">
                     <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                    <h4 className="font-bold text-lg">Thank you! Your requirements have been sent.</h4>
-                    <p className="text-xs text-emerald-700">
-                      Our workforce consulting team will reach out to you within 2 hours.
-                    </p>
+                    <h4 className="font-bold text-lg">Thank You for Your Message! Our team will contact you shortly.</h4>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    {errorMessage && (
+                      <div className="bg-red-50 text-red-700 text-xs p-3.5 rounded-lg border border-red-200 animate-fadeIn">
+                        {errorMessage}
+                      </div>
+                    )}
                     
                     {/* Row 1: Name & Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -259,11 +254,14 @@ export default function Contact() {
                           onChange={(e) => setFormData({ ...formData, industryType: e.target.value })}
                           className="w-full px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-[#00a2ed] focus:ring-1 focus:ring-[#00a2ed] text-xs sm:text-sm bg-white text-slate-700"
                         >
-                          <option value="">Select</option>
+                          <option value="">Select Industry</option>
                           <option value="Commercial Construction">Commercial Construction</option>
                           <option value="Residential Construction">Residential Construction</option>
                           <option value="Infrastructure and Public Works">Infrastructure and Public Works</option>
                           <option value="Industrial Construction">Industrial Construction</option>
+                          <option value="Logistics & Warehousing">Logistics & Warehousing</option>
+                          <option value="Manufacturing & Plant Staffing">Manufacturing & Plant Staffing</option>
+                          <option value="Facility Management">Facility Management</option>
                           <option value="Other">Other</option>
                         </select>
                       </div>
@@ -287,14 +285,24 @@ export default function Contact() {
                     <div className="pt-2">
                       <button
                         type="submit"
-                        className="w-full sm:w-auto bg-[#00a2ed] hover:bg-[#0090d4] text-white font-bold text-xs sm:text-sm px-8 py-3 rounded-md shadow-md hover:shadow-lg transition-all cursor-pointer"
+                        disabled={isSubmitting}
+                        className="w-full sm:w-auto bg-[#00a2ed] hover:bg-[#0090d4] disabled:opacity-60 text-white font-bold text-xs sm:text-sm px-8 py-3 rounded-md shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
                       >
-                        Send Message
+                        {isSubmitting ? (
+                          <>
+                            <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            <span>Sending...</span>
+                          </>
+                        ) : (
+                          <span>Send Message</span>
+                        )}
                       </button>
                     </div>
 
                   </form>
                 )}
+
+
 
               </div>
             </div>
@@ -502,13 +510,25 @@ export default function Contact() {
 
           </div>
 
-          {/* Bottom Copyright Bar */}
-          <div className="border-t border-white/20 pt-6 text-center text-xs text-white/90 font-normal">
-            © 2026 Copyright Bhavika Manpower and Recruitment Services
+          {/* Bottom Copyright & Developer Attribution Bar */}
+          <div className="border-t border-white/20 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs text-white/90 font-normal">
+            <p>© 2026 Copyright Bhavika Manpower and Recruitment Services</p>
+            <p>
+              Developed by{' '}
+              <a
+                href="https://affobe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-white underline decoration-white/70 hover:decoration-white hover:text-white transition cursor-pointer"
+              >
+                AFFOBE
+              </a>
+            </p>
           </div>
 
         </div>
       </footer>
+
 
     </div>
   )

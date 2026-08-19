@@ -520,13 +520,25 @@ export default function ConstructionManpower() {
 
           </div>
 
-          {/* Bottom Copyright Bar */}
-          <div className="border-t border-white/20 pt-6 text-center text-xs text-white/90 font-normal">
-            © 2026 Copyright Bhavika Manpower and Recruitment Services
+          {/* Bottom Copyright & Developer Attribution Bar */}
+          <div className="border-t border-white/20 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs text-white/90 font-normal">
+            <p>© 2026 Copyright Bhavika Manpower and Recruitment Services</p>
+            <p>
+              Developed by{' '}
+              <a
+                href="https://affobe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-white underline decoration-white/70 hover:decoration-white hover:text-white transition cursor-pointer"
+              >
+                AFFOBE
+              </a>
+            </p>
           </div>
 
         </div>
       </footer>
+
 
     </div>
   )
