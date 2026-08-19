@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ChevronDown, Menu, X, Search, Briefcase, HardHat, Factory, ArrowRight } from 'lucide-react'
+import { ChevronDown, Menu, X, Briefcase, HardHat, Factory, ArrowRight } from 'lucide-react'
 import logoImg from '../IMAGES/LogoImage.jpeg'
 
 export default function Navbar({ activeSection = 'home' }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
   const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -208,27 +207,8 @@ export default function Navbar({ activeSection = 'home' }) {
 
           </nav>
 
-          {/* Far Right Search Icon (matches ANG screenshot design) */}
-          <div className="hidden lg:flex items-center pl-4">
-            <button
-              onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2.5 text-slate-700 hover:text-[#0088cc] hover:bg-blue-50/80 rounded-full transition-all duration-200 group"
-              title="Search"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5 group-hover:scale-110 transition-transform stroke-[2.2]" />
-            </button>
-          </div>
-
           {/* Mobile Hamburger Toggle */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 text-slate-700 hover:text-[#0088cc]"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5" />
-            </button>
+          <div className="flex items-center lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-slate-800 hover:bg-slate-100 rounded-lg focus:outline-none"
@@ -241,28 +221,6 @@ export default function Navbar({ activeSection = 'home' }) {
         </div>
       </div>
 
-      {/* Expandable Search Input Bar */}
-      {searchOpen && (
-        <div className="border-t border-slate-200 bg-slate-50 px-4 py-3 shadow-inner animate-fadeIn">
-          <div className="max-w-4xl mx-auto flex items-center gap-3">
-            <Search className="w-5 h-5 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search manpower categories, construction workforce, recruitment solutions..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent text-sm border-0 focus:ring-0 text-slate-800 placeholder-slate-400 py-1"
-              autoFocus
-            />
-            <button
-              onClick={() => setSearchOpen(false)}
-              className="text-xs font-semibold text-slate-500 hover:text-slate-800 px-2.5 py-1 bg-white border rounded shadow-xs"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Mobile Slide-in Drawer */}
       {mobileMenuOpen && (

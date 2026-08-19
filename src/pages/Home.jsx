@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { submitContactForm } from '../services/contactService'
+import whyChooseImg from '../IMAGES/why_choose_bhavika.jpg'
 import {
+
   Phone,
   Mail,
   MapPin,
@@ -137,8 +139,7 @@ export default function Home() {
 
   // Active navigation section
   const [activeSection, setActiveSection] = useState('home')
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
+
 
   // -------------------------------------------------------------
   // HERO SLIDES DATA
@@ -146,9 +147,10 @@ export default function Home() {
   const slides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=2400&q=85",
+      image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2400&q=90",
       badge: "India's Dependable Workforce Partner",
       title: "Your Trusted Partner in Workforce Solutions",
+
       subtext: "Connecting skilled, semi-skilled, and professional talent with top enterprises across construction, industrial, logistics, and corporate sectors.",
       ctaPrimary: "Hire Talent Now",
       ctaSecondary: "Explore Services",
@@ -310,10 +312,11 @@ export default function Home() {
   const industriesList = [
     {
       title: "Construction & Infrastructure",
-      image: "https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=1200&q=85",
       roles: "Civil Engineers, Bar Benders, Masons, Electricians, Site Supervisors, Labor",
       tag: "Mega Projects & Real Estate"
     },
+
     {
       title: "Manufacturing & Industrial",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
@@ -685,12 +688,14 @@ export default function Home() {
             <div className="lg:col-span-5">
               <div className="rounded-2xl overflow-hidden shadow-md">
                 <img
-                  src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1200&q=85"
+                  src={whyChooseImg}
                   alt="Construction Engineer with Blueprints at Project Site"
                   className="w-full h-[460px] sm:h-[520px] md:h-[560px] object-cover object-center"
                 />
               </div>
             </div>
+
+
 
           </div>
 
@@ -1439,28 +1444,19 @@ export default function Home() {
       )}
 
       {/* ------------------------------------------------------------- */}
-      {/* 14. FLOATING QUICK CONTACT BUTTONS (WHATSAPP & PHONE) */}
+      {/* 14. FLOATING QUICK CONTACT BUTTON */}
       {/* ------------------------------------------------------------- */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
         <a
-          href="https://wa.me/918882943975?text=Hello%20Bhavika%20Manpower,%20I%20have%20a%20manpower%20requirement."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
-          title="Chat on WhatsApp"
-          aria-label="WhatsApp"
-        >
-          <MessageSquare className="w-6 h-6" />
-        </a>
-        <a
           href="tel:+918882943975"
-          className="w-12 h-12 rounded-full bg-primary-700 hover:bg-primary-800 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
+          className="w-12 h-12 rounded-full bg-[#00a2ed] hover:bg-[#0090d4] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
           title="Direct Call"
           aria-label="Call Bhavika Manpower"
         >
           <Phone className="w-5 h-5" />
         </a>
       </div>
+
 
     </div>
   )

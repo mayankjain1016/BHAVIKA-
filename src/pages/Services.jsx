@@ -163,10 +163,11 @@ export default function Services() {
       <section className="relative h-56 sm:h-64 md:h-72 bg-slate-900 text-white flex items-center overflow-hidden">
         {/* Background Image */}
         <img
-          src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=2000&q=80"
+          src="https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?auto=format&fit=crop&w=2000&q=85"
           alt="Construction Services Overview"
           className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-75"
         />
+
         
         {/* Dark Vignette Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/70" />

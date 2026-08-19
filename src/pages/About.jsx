@@ -117,10 +117,11 @@ export default function About() {
       <section className="relative h-56 sm:h-64 md:h-72 bg-slate-900 text-white flex items-center overflow-hidden">
         {/* Background Image with Crisp Contrast & Grayscale Filter */}
         <img
-          src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=2000&q=80"
+          src="https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&w=2000&q=85"
           alt="Construction Site with Crane and Scaffolding"
           className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-75"
         />
+
         
         {/* Dark Vignette Overlay for High Readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/70" />
