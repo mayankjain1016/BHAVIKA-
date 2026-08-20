@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import {
-  CheckCircle2,
   HardHat,
   Wrench,
   Clock,
@@ -48,28 +47,6 @@ const MediumIcon = () => (
 )
 
 export default function ConstructionManpower() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-    phone: ''
-  })
-  const [submitted, setSubmitted] = useState(false)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        message: '',
-        phone: ''
-      })
-    }, 4000)
-  }
-
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between font-sans antialiased text-slate-800">
       
@@ -170,115 +147,6 @@ export default function ConstructionManpower() {
         <p className="text-[#4b5563] text-sm sm:text-base leading-relaxed font-normal">
           From <strong>masons and carpenters to electricians, plumbers, and general helpers</strong>, our workers bring hands-on experience, know-how, and a strong work ethic to every task. They're trained to work safely, follow site protocols, and stay focused on getting the job done right.
         </p>
-      </section>
-
-      {/* 6. SECTION 4: ENTER YOUR REQUIREMENTS FOR YOUR SITE + SITE PHOTO (EXACT MATCH TO SCREENSHOT 3 & 4) */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          
-          {/* Left Column: Requirements Form */}
-          <div className="lg:col-span-6 space-y-6">
-            <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-[34px] text-[#29439c] tracking-tight">
-              Enter Your Requirements For Your Site:
-            </h2>
-
-            {submitted ? (
-              <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 p-6 rounded-xl text-center space-y-2 animate-fadeIn">
-                <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                <h3 className="font-bold text-lg">Site Requirements Received!</h3>
-                <p className="text-xs text-emerald-700">
-                  Our construction staffing team will reach out to you shortly.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                
-                {/* NAME */}
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-900 mb-1">
-                    NAME
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-none border border-slate-300 focus:border-[#29439c] focus:ring-1 focus:ring-[#29439c] text-sm bg-white placeholder-slate-400"
-                  />
-                </div>
-
-                {/* ENTER YOUR BUSINESS EMAIL */}
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-900 mb-1">
-                    ENTER YOUR BUSINESS EMAIL
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-none border border-slate-300 focus:border-[#29439c] focus:ring-1 focus:ring-[#29439c] text-sm bg-white placeholder-slate-400"
-                  />
-                </div>
-
-                {/* MESSAGE */}
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-900 mb-1">
-                    MESSAGE
-                  </label>
-                  <textarea
-                    rows="3"
-                    required
-                    placeholder="Message"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-none border border-slate-300 focus:border-[#29439c] focus:ring-1 focus:ring-[#29439c] text-sm bg-white placeholder-slate-400 resize-none"
-                  />
-                </div>
-
-                {/* CONTACT NUMBER */}
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-900 mb-1">
-                    CONTACT NUMBER
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="Enter Your Contact Number"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-none border border-slate-300 focus:border-[#29439c] focus:ring-1 focus:ring-[#29439c] text-sm bg-white placeholder-slate-400"
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    className="w-full bg-[#1879c9] hover:bg-[#0f68b3] text-white font-bold text-sm sm:text-base py-3.5 rounded-none sm:rounded-md shadow transition-colors cursor-pointer"
-                  >
-                    Send
-                  </button>
-                </div>
-
-              </form>
-            )}
-          </div>
-
-          {/* Right Column: Tower Cranes & Site Photo */}
-          <div className="lg:col-span-6">
-            <div className="rounded-2xl overflow-hidden shadow-sm">
-              <img
-                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80"
-                alt="Construction Site with Tower Cranes and Workforce"
-                className="w-full h-[450px] sm:h-[480px] object-cover object-center"
-              />
-            </div>
-          </div>
-
-        </div>
       </section>
 
       {/* 7. SECTION 5: WHAT SETS OUR BHAVIKA MANPOWER APART (EXACT MATCH TO SCREENSHOT 4 & 5) */}
